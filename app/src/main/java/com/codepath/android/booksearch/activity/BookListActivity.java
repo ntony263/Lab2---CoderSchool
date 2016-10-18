@@ -30,9 +30,6 @@ public class BookListActivity extends AppCompatActivity {
     @BindView(R.id.lvBooks)
     RecyclerView lvBooks;
 
-    @BindView(R.id.pbLoading)
-    ProgressBar pbLoading;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

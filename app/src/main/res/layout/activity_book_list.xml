@@ -4,12 +4,6 @@
     android:layout_height="match_parent"
     tools:context=".activity.BookListActivity">
 
-    <ProgressBar
-        android:id="@+id/pbLoading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/lvBooks"
         android:layout_width="match_parent"
