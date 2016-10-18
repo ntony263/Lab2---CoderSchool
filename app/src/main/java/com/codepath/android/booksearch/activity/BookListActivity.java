@@ -11,7 +11,8 @@ import android.view.MenuItem;
 import com.codepath.android.booksearch.R;
 import com.codepath.android.booksearch.adapter.BookAdapter;
 import com.codepath.android.booksearch.api.BookApi;
-import com.codepath.android.booksearch.model.BookSearch;
+import com.codepath.android.booksearch.model.SearchRequest;
+import com.codepath.android.booksearch.model.SearchResult;
 import com.codepath.android.booksearch.utils.RetrofitUtils;
 
 import butterknife.BindView;
@@ -25,7 +26,7 @@ import retrofit2.Response;
  */
 
 public class BookListActivity extends AppCompatActivity {
-    private int mCurrentPage = 1;
+    private SearchRequest mSearchRequest;
     private BookAdapter mBookAdapter;
     private BookApi mBookApi;
     private LinearLayoutManager mLayoutManager;
@@ -40,10 +41,11 @@ public class BookListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setUpApi();
         setUpViews();
-        fetchBooks("Oscar Wilde");
+        fetchBooks();
     }
 
     private void setUpApi() {
+        mSearchRequest = new SearchRequest();
         mBookApi = RetrofitUtils.get().create(BookApi.class);
     }
 
@@ -56,22 +58,22 @@ public class BookListActivity extends AppCompatActivity {
 
     // Executes an API call to the OpenLibrary search endpoint, parses the results
     // Converts them into an array of book objects and adds them to the adapter
-    private void fetchBooks(String query) {
-        mBookApi.search(query, mCurrentPage).enqueue(new Callback<BookSearch>() {
+    private void fetchBooks() {
+        mBookApi.search(mSearchRequest.toQueryMay()).enqueue(new Callback<SearchResult>() {
             @Override
-            public void onResponse(Call<BookSearch> call, Response<BookSearch> response) {
+            public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
                 handleResponse(response.body());
             }
 
             @Override
-            public void onFailure(Call<BookSearch> call, Throwable t) {
+            public void onFailure(Call<SearchResult> call, Throwable t) {
                 Log.e("Error", t.getMessage());
             }
         });
     }
 
-    private void handleResponse(BookSearch bookSearch) {
-        mBookAdapter.setBooks(bookSearch.getBooks());
+    private void handleResponse(SearchResult searchResult) {
+        mBookAdapter.setBooks(searchResult.getBooks());
     }
 
     @Override
