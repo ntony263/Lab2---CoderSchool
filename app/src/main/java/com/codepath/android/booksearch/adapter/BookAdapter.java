@@ -1,4 +1,4 @@
-package com.codepath.android.booksearch.adapters;
+package com.codepath.android.booksearch.adapter;
 
 import android.content.Context;
 import android.net.Uri;
@@ -10,10 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.android.booksearch.R;
-import com.codepath.android.booksearch.models.Book;
+import com.codepath.android.booksearch.model.Book;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BookAdapter extends ArrayAdapter<Book> {
     // View lookup cache
@@ -25,6 +26,12 @@ public class BookAdapter extends ArrayAdapter<Book> {
 
     public BookAdapter(Context context, ArrayList<Book> books) {
         super(context, 0, books);
+    }
+
+    public void setBooks(List<Book> books) {
+        clear();
+        addAll(books);
+        notifyDataSetChanged();
     }
 
     // Translates a particular `Book` given a position

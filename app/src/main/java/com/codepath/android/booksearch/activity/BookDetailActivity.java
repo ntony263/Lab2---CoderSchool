@@ -1,4 +1,4 @@
-package com.codepath.android.booksearch.activities;
+package com.codepath.android.booksearch.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
