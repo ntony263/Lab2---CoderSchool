@@ -23,8 +23,8 @@ public class BookAdapter extends ArrayAdapter<Book> {
         public TextView tvAuthor;
     }
 
-    public BookAdapter(Context context, ArrayList<Book> aBooks) {
-        super(context, 0, aBooks);
+    public BookAdapter(Context context, ArrayList<Book> books) {
+        super(context, 0, books);
     }
 
     // Translates a particular `Book` given a position
