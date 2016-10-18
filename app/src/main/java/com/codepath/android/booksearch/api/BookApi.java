@@ -13,5 +13,5 @@ import retrofit2.http.Query;
 public interface BookApi {
 
     @GET("search.json")
-    Call<BookSearch> search(@Query("q") String query);
+    Call<BookSearch> search(@Query("q") String query, @Query("page") int page);
 }

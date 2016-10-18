@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ProgressBar;
 
 import com.codepath.android.booksearch.R;
 import com.codepath.android.booksearch.adapter.BookAdapter;
@@ -21,8 +20,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * <a href="https://gist.github.com/nesquena/d09dc68ff07e845cc622">Reference here</a>
+ */
 
 public class BookListActivity extends AppCompatActivity {
+    private int mCurrentPage = 1;
     private BookAdapter mBookAdapter;
     private BookApi mBookApi;
     private LinearLayoutManager mLayoutManager;
@@ -54,7 +57,7 @@ public class BookListActivity extends AppCompatActivity {
     // Executes an API call to the OpenLibrary search endpoint, parses the results
     // Converts them into an array of book objects and adds them to the adapter
     private void fetchBooks(String query) {
-        mBookApi.search(query).enqueue(new Callback<BookSearch>() {
+        mBookApi.search(query, mCurrentPage).enqueue(new Callback<BookSearch>() {
             @Override
             public void onResponse(Call<BookSearch> call, Response<BookSearch> response) {
                 handleResponse(response.body());
