@@ -21,10 +21,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * <a href="https://gist.github.com/nesquena/d09dc68ff07e845cc622">Reference here</a>
- */
-
 public class BookListActivity extends AppCompatActivity {
     private SearchRequest mSearchRequest;
     private BookAdapter mBookAdapter;
