@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 
 import com.codepath.android.booksearch.R;
 import com.codepath.android.booksearch.adapter.BookAdapter;
@@ -28,6 +29,9 @@ public class BookListActivity extends AppCompatActivity {
 
     @BindView(R.id.lvBooks)
     RecyclerView lvBooks;
+
+    @BindView(R.id.pbLoading)
+    ProgressBar pbLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
