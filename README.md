@@ -10,13 +10,12 @@ The app does the following:
 
 1. Fetch the books from the [OpenLibrary Search API](https://openlibrary.org/dev/docs/api/search) in JSON format
 2. Deserialize the JSON data for each of the books into `Book` objects
-3. Build an array of `Book` objects and create an `ArrayAdapter` for those books
-4. Define `getView` to define how to inflate a layout for each book row and display each book's data.
-5. Attach the adapter for the books to a ListView to display the data on screen
+3. Build an array of `Book` objects and create an `RecyclerView.Adapter` for those books
+4. Attach the adapter for the books to a ListView to display the data on screen
 
 To achieve this, there are four different components in this app:
 
-1. `BookClient` - Responsible for executing the API requests and retrieving the JSON
+1. `BookApi` - Responsible for executing the API requests and retrieving the JSON
 2. `Book` - Model object responsible for encapsulating the attributes for each individual book
 3. `BookAdapter` - Responsible for mapping each `Book` to a particular view layout
 4. `BookListActivity` - Responsible for fetching and deserializing the data and configuring the adapter
@@ -37,5 +36,5 @@ This app is intended to be the base project on top of which new features can be 
 
 This app leverages two third-party libraries:
 
- * [Android AsyncHTTPClient](http://loopj.com/android-async-http/) - For asynchronous network requests
+ * [Retrofit](http://square.github.io/retrofit/) - For asynchronous network requests
  * [Picasso](http://square.github.io/picasso/) - For remote image loading
