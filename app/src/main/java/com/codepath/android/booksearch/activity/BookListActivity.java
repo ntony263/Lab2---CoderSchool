@@ -2,19 +2,17 @@ package com.codepath.android.booksearch.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 
 import com.codepath.android.booksearch.R;
 import com.codepath.android.booksearch.adapter.BookAdapter;
 import com.codepath.android.booksearch.api.BookApi;
-import com.codepath.android.booksearch.model.Book;
 import com.codepath.android.booksearch.model.BookSearch;
 import com.codepath.android.booksearch.utils.RetrofitUtils;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,24 +24,30 @@ import retrofit2.Response;
 public class BookListActivity extends AppCompatActivity {
     private BookAdapter mBookAdapter;
     private BookApi mBookApi;
+    private LinearLayoutManager mLayoutManager;
 
     @BindView(R.id.lvBooks)
-    ListView lvBooks;
+    RecyclerView lvBooks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list);
         ButterKnife.bind(this);
-
-        // initialize api
-        mBookApi = RetrofitUtils.get().create(BookApi.class);
-        // initialize the adapter
-        mBookAdapter = new BookAdapter(this, new ArrayList<Book>());
-        // attach the adapter to the ListView
-        lvBooks.setAdapter(mBookAdapter);
-        // Fetch the data remotely
+        setUpApi();
+        setUpViews();
         fetchBooks("Oscar Wilde");
+    }
+
+    private void setUpApi() {
+        mBookApi = RetrofitUtils.get().create(BookApi.class);
+    }
+
+    private void setUpViews() {
+        mBookAdapter = new BookAdapter();
+        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        lvBooks.setAdapter(mBookAdapter);
+        lvBooks.setLayoutManager(mLayoutManager);
     }
 
     // Executes an API call to the OpenLibrary search endpoint, parses the results
