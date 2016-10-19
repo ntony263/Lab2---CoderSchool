@@ -58,7 +58,9 @@ public class BookListActivity extends AppCompatActivity {
         mBookApi.search(mSearchRequest.toQueryMay()).enqueue(new Callback<SearchResult>() {
             @Override
             public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
-                handleResponse(response.body());
+                if (response.body() != null) {
+                    handleResponse(response.body());
+                }
             }
 
             @Override
