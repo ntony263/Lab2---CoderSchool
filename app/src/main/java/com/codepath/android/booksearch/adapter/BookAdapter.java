@@ -43,6 +43,7 @@ public class BookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
+        // TODO: Update this function
         return 0;
     }
 
