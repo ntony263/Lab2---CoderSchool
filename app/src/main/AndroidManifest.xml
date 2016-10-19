@@ -20,7 +20,7 @@
         </activity>
         <activity
             android:name=".activity.BookDetailActivity"
-            android:label="@string/title_activity_book_detail" >
+            android:label="@string/title_activity_book_detail">
         </activity>
     </application>
 
