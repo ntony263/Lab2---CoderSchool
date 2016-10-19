@@ -1,6 +1,7 @@
 package com.codepath.android.booksearch.activity;
 
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 
 import com.codepath.android.booksearch.R;
 import com.codepath.android.booksearch.adapter.BookAdapter;
@@ -40,7 +42,7 @@ public class BookListActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setUpApi();
         setUpViews();
-        fetchBooks();
+
     }
 
     private void setUpApi() {
@@ -56,9 +58,40 @@ public class BookListActivity extends AppCompatActivity {
         lvBooks.setLayoutManager(mLayoutManager);
     }
 
+    MenuItem miActionProgressItem;
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // Store instance of the menu item containing progress
+        miActionProgressItem = menu.findItem(R.id.miActionProgress);
+        // Extract the action-view from the menu item
+        ProgressBar v =  (ProgressBar) MenuItemCompat.getActionView(miActionProgressItem);
+        // Return to finish
+        fetchBooks();
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+        return true;
+    }
+
+    public void showProgressBar() {
+        // Show progress item
+        miActionProgressItem.setVisible(true);
+    }
+
+    public void hideProgressBar() {
+        // Hide progress item
+        miActionProgressItem.setVisible(false);
+    }
+
     // Executes an API call to the OpenLibrary search endpoint, parses the results
     // Converts them into an array of book objects and adds them to the adapter
     private void fetchBooks() {
+        showProgressBar();
         mBookApi.search(mSearchRequest.toQueryMay()).enqueue(new Callback<SearchResult>() {
             @Override
             public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
@@ -76,14 +109,9 @@ public class BookListActivity extends AppCompatActivity {
 
     private void handleResponse(SearchResult searchResult) {
         mBookAdapter.setBooks(searchResult.getBooks(), this);
+        hideProgressBar();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_book_list, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
