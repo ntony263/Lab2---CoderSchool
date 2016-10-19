@@ -27,6 +27,7 @@ public class BookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public void addBooks(List<Book> books) {
+        // int startPosition = getItemCount();
         // TODO: Insert your code here
     }
 
