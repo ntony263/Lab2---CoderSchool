@@ -71,7 +71,7 @@ public class BookListActivity extends AppCompatActivity {
     }
 
     private void handleResponse(SearchResult searchResult) {
-        mBookAdapter.setBooks(searchResult.getBooks());
+        mBookAdapter.setBooks(searchResult.getBooks(), this);
     }
 
     @Override
